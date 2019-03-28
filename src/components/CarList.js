@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-
 import Button from "@material-ui/core/Button";
+
+import AddCar from "./AddCar";
 
 class CarList extends Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class CarList extends Component {
 
     return (
       <div>
+        <AddCar />
         <ReactTable
           data={this.state.cars}
           columns={columns}

@@ -6,7 +6,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-class AddCar extends Component {
+class EditCar extends Component {
   state = {
     open: false,
     model: "",
@@ -18,7 +18,15 @@ class AddCar extends Component {
   };
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    this.setState({
+      open: true,
+      brand: this.props.car.brand,
+      model: this.props.car.model,
+      color: this.props.car.color,
+      fuel: this.props.car.fuel,
+      year: this.props.car.year,
+      price: this.props.car.price
+    });
   };
 
   handleClose = () => {
@@ -29,7 +37,7 @@ class AddCar extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  addNewCar = () => {
+  editCar = () => {
     const newCar = {
       model: this.state.model,
       brand: this.state.brand,
@@ -38,7 +46,7 @@ class AddCar extends Component {
       year: this.state.year,
       price: this.state.price
     };
-    this.props.saveCar(newCar);
+    this.props.updateCar(this.props.link, newCar);
     this.handleClose();
   };
 
@@ -59,6 +67,7 @@ class AddCar extends Component {
               name="brand"
               label="Brand"
               fullWidth
+              value={this.state.brand}
             />
             <TextField
               onChange={this.handleChange}
@@ -66,6 +75,7 @@ class AddCar extends Component {
               name="model"
               label="Model"
               fullWidth
+              value={this.state.model}
             />
             <TextField
               onChange={this.handleChange}
@@ -73,6 +83,7 @@ class AddCar extends Component {
               name="color"
               label="Color"
               fullWidth
+              value={this.state.color}
             />
             <TextField
               onChange={this.handleChange}
@@ -80,6 +91,7 @@ class AddCar extends Component {
               name="fuel"
               label="Fuel"
               fullWidth
+              value={this.state.fuel}
             />
             <TextField
               onChange={this.handleChange}
@@ -87,6 +99,7 @@ class AddCar extends Component {
               name="year"
               label="Year"
               fullWidth
+              value={this.state.year}
             />
             <TextField
               onChange={this.handleChange}
@@ -94,20 +107,21 @@ class AddCar extends Component {
               name="price"
               label="Price"
               fullWidth
+              value={this.state.price}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleClose} color="secondary">
               Cancel
             </Button>
-            <Button onClick={this.addNewCar} color="primary">
+            <Button onClick={this.editCar} color="primary">
               Save
             </Button>
           </DialogActions>
         </Dialog>
-        <Button onClick={this.handleClickOpen}>ADD CAR</Button>
+        <Button onClick={this.handleClickOpen}>EDIT</Button>
       </div>
     );
   }
 }
-export default AddCar;
+export default EditCar;

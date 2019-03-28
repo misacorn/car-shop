@@ -41,7 +41,15 @@ class CarList extends Component {
       .catch(err => console.error(err));
   };
 
-  editCar = id => {};
+  updateCar = (link, updatedCar) => {
+    fetch(link, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedCar)
+    })
+      .then(res => this.loadCars())
+      .catch(err => console.error(err));
+  };
 
   handleClose = () => {
     this.setState({ open: false });
@@ -79,7 +87,9 @@ class CarList extends Component {
         sortable: false,
         width: 100,
         accessor: "_links.self.href",
-        Cell: ({ value, row }) => <EditCar link={value} car={row} />
+        Cell: ({ value, row }) => (
+          <EditCar updateCar={this.updateCar} link={value} car={row} />
+        )
       },
       {
         Header: " ",

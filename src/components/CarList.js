@@ -8,10 +8,7 @@ import AddCar from "./AddCar";
 import EditCar from "./EditCar";
 
 class CarList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { cars: [], open: false };
-  }
+  state = { cars: [], open: false, message: "Car added!" };
 
   componentDidMount() {
     this.loadCars();
@@ -27,6 +24,7 @@ class CarList extends Component {
   deleteCar = carLink => {
     fetch(carLink.original._links.self.href, { method: "DELETE" })
       .then(res => this.loadCars())
+      .then(res => this.setState({ open: true, message: "Car deleted!" }))
       .catch(err => console.error(err));
   };
 
@@ -37,7 +35,7 @@ class CarList extends Component {
       body: JSON.stringify(car)
     })
       .then(res => this.loadCars())
-      .then(res => this.setState({ open: true }))
+      .then(res => this.setState({ open: true, message: "Car added!" }))
       .catch(err => console.error(err));
   };
 
@@ -48,6 +46,7 @@ class CarList extends Component {
       body: JSON.stringify(updatedCar)
     })
       .then(res => this.loadCars())
+      .then(res => this.setState({ open: true, message: "Car updated!" }))
       .catch(err => console.error(err));
   };
 
@@ -122,7 +121,7 @@ class CarList extends Component {
           open={this.state.open}
           autoHideDuration={3000}
           onClose={this.handleClose}
-          message="Car added successfully!"
+          message={this.state.message}
         />
       </div>
     );

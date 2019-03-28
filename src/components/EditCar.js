@@ -38,13 +38,14 @@ class EditCar extends Component {
   };
 
   editCar = () => {
+    const { model, brand, color, fuel, year, price } = this.state;
     const newCar = {
-      model: this.state.model,
-      brand: this.state.brand,
-      color: this.state.color,
-      fuel: this.state.fuel,
-      year: this.state.year,
-      price: this.state.price
+      model: model,
+      brand: brand,
+      color: color,
+      fuel: fuel,
+      year: year,
+      price: price
     };
     this.props.updateCar(this.props.link, newCar);
     this.handleClose();
